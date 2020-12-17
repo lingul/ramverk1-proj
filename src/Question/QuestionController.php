@@ -70,7 +70,7 @@ class QuestionController implements ContainerInjectableInterface
             "allQuestions" => $allQuestions,
         ]);
 
-        //$top3Tags = $question->selectWhere("COUNT(*) as sum", "id = ?", $question->id);
+        $top3Tags = $question->selectWhere("COUNT(*) as sum", "id = ?", $question->id);
 
         foreach ($allQuestions as $question) {
             $user = new User();
@@ -329,7 +329,7 @@ class QuestionController implements ContainerInjectableInterface
      */
     public function voteActionGet() : object
     {
-        //$userId      = $this->di->session->get('loggedIn');
+        $userId      = $this->di->session->get('loggedIn');
         $votedId   = $this->di->request->getGet("votedId");
         $votedType = $this->di->request->getGet("votedType");
         $questId   = $this->di->request->getGet("questId") ?? $votedId;
@@ -400,7 +400,7 @@ class QuestionController implements ContainerInjectableInterface
      */
     public function acceptActionGet() : object
     {
-        //$userId = $this->di->session->get('loggedIn');
+        $userId = $this->di->session->get('loggedIn');
         $questId  = $this->di->request->getGet("questionId");
         $answerId = $this->di->request->getGet("answerId");
 
