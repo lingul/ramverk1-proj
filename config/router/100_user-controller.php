@@ -7,7 +7,7 @@ return [
         [
             "info" => "User controller.",
             "mount" => "user",
-            "handler" => "\Pon\User\UserController",
+            "handler" => "\ligm\User\UserController",
         ],
     ]
 ];

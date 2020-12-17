@@ -1,17 +1,17 @@
 <?php
 
-namespace Pon\User;
+namespace ligm\User;
 
 use Anax\Commons\ContainerInjectableInterface;
 use Anax\Commons\ContainerInjectableTrait;
-use Pon\User\HTMLForm\UserLoginForm;
-use Pon\User\HTMLForm\EditUserForm;
-use Pon\User\HTMLForm\CreateUserForm;
-use Pon\Question\Question;
-use Pon\Question\Answer;
-use Pon\Question\Comment;
-use Pon\Question\UserVotes;
-use Pon\Filter\Filter;
+use ligm\User\HTMLForm\UserLoginForm;
+use ligm\User\HTMLForm\EditUserForm;
+use ligm\User\HTMLForm\CreateUserForm;
+use ligm\Question\Question;
+use ligm\Question\Answer;
+use ligm\Question\Comment;
+use ligm\Question\UserVotes;
+use ligm\Filter\Filter;
 
 // use Anax\Route\Exception\ForbiddenException;
 // use Anax\Route\Exception\NotFoundException;
@@ -112,8 +112,8 @@ class UserController implements ContainerInjectableInterface
 
         $question = new Question();
         $question->setDb($this->di->get("dbqb"));
-        $Questions = $question->findAllWhere("userId = ?", $id);
-        foreach ($Questions as $quest) {
+        $questions = $question->findAllWhere("userId = ?", $id);
+        foreach ($questions as $quest) {
             $parsedText = $this->filter->markdown($quest->text);
             $page->add("user/userQuestion", [
                 "question" => $quest,
@@ -126,9 +126,9 @@ class UserController implements ContainerInjectableInterface
 
         $answer = new Answer();
         $answer->setDb($this->di->get("dbqb"));
-        $Answers = $answer->findAllWhere("userId = ?", $id);
+        $answers = $answer->findAllWhere("userId = ?", $id);
 
-        foreach ($Answers as $answer) {
+        foreach ($answers as $answer) {
             $question = new Question();
             $question->setDb($this->di->get("dbqb"));
             $question->find("id", $answer->questionid);
@@ -145,9 +145,9 @@ class UserController implements ContainerInjectableInterface
 
         $comment = new Comment();
         $comment->setDb($this->di->get("dbqb"));
-        $Comments = $comment->findAllWhere("userId = ?", $id);
+        $comments = $comment->findAllWhere("userId = ?", $id);
 
-        foreach ($Comments as $comment) {
+        foreach ($comments as $comment) {
             $question = new Question();
             $question->setDb($this->di->get("dbqb"));
             $question->find("id", $comment->questionid);

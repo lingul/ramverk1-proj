@@ -1,8 +1,8 @@
 <?php
 
-namespace Pon\Tags;
+namespace ligm\Tags;
 
-use Pon\Barm\BonusActiveRecordModel;
+use ligm\Barm\BonusActiveRecordModel;
 
 /**
  * A database driven model.

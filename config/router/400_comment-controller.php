@@ -7,7 +7,7 @@ return [
         [
             "info" => "Comment controller.",
             "mount" => "question/view/",
-            "handler" => "\Pon\Tags\TagsController",
+            "handler" => "\ligm\Tags\TagsController",
         ],
     ]
 ];

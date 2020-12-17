@@ -7,7 +7,7 @@ return [
         [
             "info" => "Tags controller.",
             "mount" => "tags",
-            "handler" => "\Pon\Tags\TagsController",
+            "handler" => "\ligm\Tags\TagsController",
         ],
     ]
 ];

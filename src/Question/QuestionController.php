@@ -1,17 +1,17 @@
 <?php
 
-namespace Pon\Question;
+namespace ligm\Question;
 
 use Anax\Commons\ContainerInjectableInterface;
 use Anax\Commons\ContainerInjectableTrait;
-use Pon\Question\HTMLForm\CreateQuestionForm;
-use Pon\Question\HTMLForm\CreateAnswerForm;
-use Pon\Question\HTMLForm\CreateCommentForm;
-use Pon\User\User;
-use Pon\Question\Answer;
-use Pon\Tags\TagQuestion;
-use Pon\Question\UserVotes;
-use Pon\Filter\Filter;
+use ligm\Question\HTMLForm\CreateQuestionForm;
+use ligm\Question\HTMLForm\CreateAnswerForm;
+use ligm\Question\HTMLForm\CreateCommentForm;
+use ligm\User\User;
+use ligm\Question\Answer;
+use ligm\Tags\TagQuestion;
+use ligm\Question\UserVotes;
+use ligm\Filter\Filter;
 
 // use Anax\Route\Exception\ForbiddenException;
 // use Anax\Route\Exception\NotFoundException;
@@ -70,7 +70,7 @@ class QuestionController implements ContainerInjectableInterface
             "allQuestions" => $allQuestions,
         ]);
 
-        $top3Tags = $question->selectWhere("COUNT(*) as sum", "id = ?", $question->id);
+        //$top3Tags = $question->selectWhere("COUNT(*) as sum", "id = ?", $question->id);
 
         foreach ($allQuestions as $question) {
             $user = new User();
@@ -140,9 +140,9 @@ class QuestionController implements ContainerInjectableInterface
         $question->setDb($this->di->get("dbqb"));
         $theQuestion = $question->find('id', $id);
 
-        $TagQuestion = new TagQuestion();
-        $TagQuestion->setDb($this->di->get("dbqb"));
-        $tags = $TagQuestion->findAllWhere("questionid = ?", $id);
+        $tagQuestion = new TagQuestion();
+        $tagQuestion->setDb($this->di->get("dbqb"));
+        $tags = $tagQuestion->findAllWhere("questionid = ?", $id);
 
         $user = new User();
         $user->setDb($this->di->get("dbqb"));
@@ -329,7 +329,7 @@ class QuestionController implements ContainerInjectableInterface
      */
     public function voteActionGet() : object
     {
-        $userId      = $this->di->session->get('loggedIn');
+        //$userId      = $this->di->session->get('loggedIn');
         $votedId   = $this->di->request->getGet("votedId");
         $votedType = $this->di->request->getGet("votedType");
         $questId   = $this->di->request->getGet("questId") ?? $votedId;
@@ -385,102 +385,6 @@ class QuestionController implements ContainerInjectableInterface
         $currUser->save();
         $nVote->save();
 
-
-
-
-
-        // if ($votedType == "question") {
-        //     $question = new Question();
-        //     $question->setDb($this->di->get("dbqb"));
-        //     $quest = $question->findWhere("id = ?", $votedId);
-        //
-        //     $userVotes = new UserVotes();
-        //     $userVotes->setDb($this->di->get("dbqb"))
-        //     $user = $question->findWhere("id = ?", $quest->userId);
-        //
-        //     if ($voted == "up" and $hasVoted == "up") {
-        //         $quest->votes = $question->votes -1;
-        //         $userVotes->deleteVote($userId, $votedId, $votedType);
-        //     } else if ($voted == "down" and $hasVoted == "down") {
-        //         $quest->votes = $question->votes + 1;
-        //         $userVotes->deleteVote($userId, $votedId, $votedType);
-        //     } else if ($voted == "up" and $hasVoted == "down") {
-        //         $quest->votes = $question->votes + 2;
-        //         $userVotes->deleteVote($userId, $votedId, $votedType);
-        //         $quest->saveVote($userId, $votedId, $votedType, $voted, $this->di);
-        //     } else if ($voted == "down" and $hasVoted == "up") {
-        //         $quest->votes = $question->votes -2;
-        //         $userVotes->deleteVote($userId, $votedId, $votedType);
-        //         $quest->saveVote($userId, $votedId, $votedType, $voted, $this->di);
-        //     } else if ($voted == "up") {
-        //         $quest->votes = $question->votes + 1;
-        //         $quest->saveVote($userId, $votedId, $votedType, $voted, $this->di);
-        //     } else if ($voted == "down") {
-        //         $quest->votes = $question->votes - 1;
-        //         $quest->saveVote($userId, $votedId, $votedType, $voted, $this->di);
-        //     }
-        //     $quest->save();
-        // }
-        //
-        // if ($votedType == "answer") {
-        //     $answer = new Answer();
-        //     $answer->setDb($this->di->get("dbqb"));
-        //     $answ = $answer->findWhere("id = ?", $votedId);
-        //
-        //     if ($voted == "up" and $hasVoted == "up") {
-        //         $answ->votes = $answer->votes -1;
-        //         $userVotes->deleteVote($userId, $votedId, $votedType);
-        //     } else if ($voted == "down" and $hasVoted == "down") {
-        //         $answ->votes = $answer->votes + 1;
-        //         $userVotes->deleteVote($userId, $votedId, $votedType);
-        //     } else if ($voted == "up" and $hasVoted == "down") {
-        //         $answ->votes = $answer->votes + 2;
-        //         $userVotes->deleteVote($userId, $votedId, $votedType);
-        //         $answ->saveVote($userId, $votedId, $votedType, $voted, $this->di);
-        //     } else if ($voted == "down" and $hasVoted == "up") {
-        //         $answ->votes = $answer->votes -2;
-        //         $userVotes->deleteVote($userId, $votedId, $votedType);
-        //         $answ->saveVote($userId, $votedId, $votedType, $voted, $this->di);
-        //     } else if ($voted == "up") {
-        //         $answ->votes = $answer->votes + 1;
-        //         $answ->saveVote($userId, $votedId, $votedType, $voted, $this->di);
-        //     } else if ($voted == "down") {
-        //         $answ->votes = $answer->votes - 1;
-        //         $answ->saveVote($userId, $votedId, $votedType, $voted, $this->di);
-        //     }
-        //     $answ->save();
-        // }
-        //
-        //
-        // if ($votedType == "comment") {
-        //     $comment = new Comment();
-        //     $comment->setDb($this->di->get("dbqb"));
-        //     $cmt = $comment->findWhere("id = ?", $votedId);
-        //
-        //     if ($voted == "up" and $hasVoted == "up") {
-        //         $cmt->votes = $comment->votes -1;
-        //         $userVotes->deleteVote($userId, $votedId, $votedType);
-        //     } else if ($voted == "down" and $hasVoted == "down") {
-        //         $cmt->votes = $comment->votes + 1;
-        //         $userVotes->deleteVote($userId, $votedId, $votedType);
-        //     } else if ($voted == "up" and $hasVoted == "down") {
-        //         $cmt->votes = $comment->votes + 2;
-        //         $userVotes->deleteVote($userId, $votedId, $votedType);
-        //         $cmt->saveVote($userId, $votedId, $votedType, $voted, $this->di);
-        //     } else if ($voted == "down" and $hasVoted == "up") {
-        //         $cmt->votes = $comment->votes -2;
-        //         $userVotes->deleteVote($userId, $votedId, $votedType);
-        //         $cmt->saveVote($userId, $votedId, $votedType, $voted, $this->di);
-        //     } else if ($voted == "up") {
-        //         $cmt->votes = $comment->votes + 1;
-        //         $cmt->saveVote($userId, $votedId, $votedType, $voted, $this->di);
-        //     } else if ($voted == "down") {
-        //         $cmt->votes = $comment->votes - 1;
-        //         $cmt->saveVote($userId, $votedId, $votedType, $voted, $this->di);
-        //     }
-        //     $cmt->save();
-        // }
-
         $this->di->response->redirect("question/view/{$questId}");
     }
 
@@ -496,7 +400,7 @@ class QuestionController implements ContainerInjectableInterface
      */
     public function acceptActionGet() : object
     {
-        $userId      = $this->di->session->get('loggedIn');
+        //$userId = $this->di->session->get('loggedIn');
         $questId  = $this->di->request->getGet("questionId");
         $answerId = $this->di->request->getGet("answerId");
 

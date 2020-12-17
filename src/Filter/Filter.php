@@ -1,6 +1,6 @@
 <?php
 
-namespace Pon\Filter;
+namespace ligm\Filter;
 
 class Filter
 {

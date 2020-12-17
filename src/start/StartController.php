@@ -1,16 +1,16 @@
 <?php
 
-namespace Pon\Start;
+namespace ligm\Start;
 
 use Anax\Commons\ContainerInjectableInterface;
 use Anax\Commons\ContainerInjectableTrait;
-use Pon\Pon\ActiveRecordModelExtra;
-use Pon\Question\Question;
-use Pon\Question\Answer;
-use Pon\Tags\TagQuestion;
-use Pon\Tag\Tag;
-use Pon\User\User;
-use Pon\Filter\Filter;
+use ligm\ligm\ActiveRecordModelExtra;
+use ligm\Question\Question;
+use ligm\Question\Answer;
+use ligm\Tags\TagQuestion;
+use ligm\Tag\Tag;
+use ligm\User\User;
+use ligm\Filter\Filter;
 
 // use Anax\Route\Exception\ForbiddenException;
 // use Anax\Route\Exception\NotFoundException;
@@ -83,9 +83,9 @@ class StartController implements ContainerInjectableInterface
             ]);
         }
 
-        $TagQuestion = new TagQuestion();
-        $TagQuestion->setDb($this->di->get("dbqb"));
-        $top3Tags = $TagQuestion->findAllOrderByGroupBy("count DESC", "text", 3, "text, count(text) as count");
+        $tagQuestion = new TagQuestion();
+        $tagQuestion->setDb($this->di->get("dbqb"));
+        $top3Tags = $tagQuestion->findAllOrderByGroupBy("count DESC", "text", 3, "text, count(text) as count");
 
         $page->add("start/topTags", [
             "allTags" => $top3Tags,

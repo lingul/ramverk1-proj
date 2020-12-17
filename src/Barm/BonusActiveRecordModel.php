@@ -1,6 +1,6 @@
 <?php
 
-namespace Pon\Barm;
+namespace ligm\Barm;
 
 use Anax\DatabaseActiveRecord\ActiveRecordModel;
 

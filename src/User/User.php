@@ -1,8 +1,8 @@
 <?php
 
-namespace Pon\User;
+namespace ligm\User;
 
-use Pon\Barm\BonusActiveRecordModel;
+use ligm\Barm\BonusActiveRecordModel;
 
 /**
  * A database driven model.

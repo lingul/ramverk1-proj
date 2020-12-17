@@ -7,7 +7,7 @@ return [
         [
             "info" => "Question controller.",
             "mount" => "question",
-            "handler" => "\Pon\Question\QuestionController",
+            "handler" => "\ligm\Question\QuestionController",
         ],
     ]
 ];

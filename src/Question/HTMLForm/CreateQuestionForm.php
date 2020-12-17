@@ -1,10 +1,10 @@
 <?php
 
-namespace Pon\Question\HTMLForm;
+namespace ligm\Question\HTMLForm;
 
-use Pon\Question\Question;
-use Pon\User\User;
-use Pon\Tags\TagQuestion;
+use ligm\Question\Question;
+use ligm\User\User;
+use ligm\Tags\TagQuestion;
 use Anax\HTMLForm\FormModel;
 use Psr\Container\ContainerInterface;
 
@@ -88,16 +88,16 @@ class CreateQuestionForm extends FormModel
 
         $questionId = $question->id;
 
-        $TagQuestion = new TagQuestion();
-        $TagQuestion->setDb($this->di->get("dbqb"));
+        $tagQuestion = new TagQuestion();
+        $tagQuestion->setDb($this->di->get("dbqb"));
         $arrTags = explode(",", $tags);
 
         foreach ($arrTags as $tag) {
-            $TagQuestion = new TagQuestion();
-            $TagQuestion->setDb($this->di->get("dbqb"));
-            $TagQuestion->questionid = $questionId;
-            $TagQuestion->text = str_replace(' ', '', strtolower($tag));
-            $TagQuestion->save();
+            $tagQuestion = new TagQuestion();
+            $tagQuestion->setDb($this->di->get("dbqb"));
+            $tagQuestion->questionid = $questionId;
+            $tagQuestion->text = str_replace(' ', '', strtolower($tag));
+            $tagQuestion->save();
         }
 
         $user = new User();

@@ -1,11 +1,11 @@
 <?php
 
-namespace Pon\Question;
+namespace ligm\Question;
 
-use Pon\Barm\BonusActiveRecordModel;
-use Pon\Question\Answer;
-use Pon\Question\Question;
-use Pon\Question\Comment;
+use ligm\Barm\BonusActiveRecordModel;
+use ligm\Question\Answer;
+use ligm\Question\Question;
+use ligm\Question\Comment;
 
 /**
  * A database driven model.

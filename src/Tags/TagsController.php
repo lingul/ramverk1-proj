@@ -1,13 +1,13 @@
 <?php
 
-namespace Pon\Tags;
+namespace ligm\Tags;
 
 use Anax\Commons\ContainerInjectableInterface;
 use Anax\Commons\ContainerInjectableTrait;
-use Pon\Question\Question;
-use Pon\Question\Answer;
-use Pon\User\User;
-use Pon\Filter\Filter;
+use ligm\Question\Question;
+use ligm\Question\Answer;
+use ligm\User\User;
+use ligm\Filter\Filter;
 
 // use Anax\Route\Exception\ForbiddenException;
 // use Anax\Route\Exception\NotFoundException;
@@ -57,14 +57,14 @@ class TagsController implements ContainerInjectableInterface
 
         $page = $this->di->get("page");
 
-        $TagQuestion = new TagQuestion();
-        $TagQuestion->setDb($this->di->get("dbqb"));
-        $dupTags = $TagQuestion->findAll();
+        $tagQuestion = new TagQuestion();
+        $tagQuestion->setDb($this->di->get("dbqb"));
+        $dupTags = $tagQuestion->findAll();
         $allTags = array();
 
-        foreach ($dupTags as $Tag) {
-            if (!in_array($Tag->text, $allTags)) {
-                $allTags[] = $Tag->text;
+        foreach ($dupTags as $tag) {
+            if (!in_array($tag->text, $allTags)) {
+                $allTags[] = $tag->text;
             }
         }
 
@@ -91,17 +91,17 @@ class TagsController implements ContainerInjectableInterface
 
         $page = $this->di->get("page");
 
-        $TagQuestion = new TagQuestion();
-        $TagQuestion->setDb($this->di->get("dbqb"));
+        $tagQuestion = new TagQuestion();
+        $tagQuestion->setDb($this->di->get("dbqb"));
 
-        $fltrQst = $TagQuestion->findAllWhere("text = ?", $tag);
+        $fltrQst = $tagQuestion->findAllWhere("text = ?", $tag);
 
         foreach ($fltrQst as $qst) {
             $user = new User();
-            $Question = new Question();
+            $question = new Question();
             $user->setDb($this->di->get("dbqb"));
-            $Question->setDb($this->di->get("dbqb"));
-            $question = $Question->find('id', $qst->questionid);
+            $question->setDb($this->di->get("dbqb"));
+            $question = $question->find('id', $qst->questionid);
             $userInfo = $user->find('id', $question->userId);
             $answer = new Answer();
             $answer->setDb($this->di->get("dbqb"));

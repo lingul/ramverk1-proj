@@ -7,7 +7,7 @@ return [
         [
             "info" => "Start page controller.",
             "mount" => "",
-            "handler" => "\Pon\Start\StartController",
+            "handler" => "\ligm\Start\StartController",
         ],
     ]
 ];
