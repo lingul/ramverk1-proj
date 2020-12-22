@@ -59,18 +59,18 @@ class QuestionController implements ContainerInjectableInterface
     public function indexActionGet() : object
     {
 
-        $page = $this->di->get("page");
+         $page = $this->di->get("page");
 
-        $question = new Question();
-        $question->setDb($this->di->get("dbqb"));
-        $allQuestions = $question->findAllOrderBy("created DESC");
-        // $allQuestions = $question->findAll();
+         $question = new Question();
+         $question->setDb($this->di->get("dbqb"));
+         $allQuestions = $question->findAllOrderBy("created DESC");
+         // $allQuestions = $question->findAll();
 
-        $page->add("question/beforeQuestions", [
-            "allQuestions" => $allQuestions,
-        ]);
+         $page->add("question/beforeQuestions", [
+             "allQuestions" => $allQuestions,
+         ]);
 
-        $top3Tags = $question->selectWhere("COUNT(*) as sum", "id = ?", $question->id);
+         $top3Tags = $question->selectWhere("COUNT(*) as sum", "id = ?", $question->id);
 
         foreach ($allQuestions as $question) {
             $user = new User();
@@ -140,9 +140,9 @@ class QuestionController implements ContainerInjectableInterface
         $question->setDb($this->di->get("dbqb"));
         $theQuestion = $question->find('id', $id);
 
-        $tagQuestion = new TagQuestion();
-        $tagQuestion->setDb($this->di->get("dbqb"));
-        $tags = $tagQuestion->findAllWhere("questionid = ?", $id);
+        $TagQuestion = new TagQuestion();
+        $TagQuestion->setDb($this->di->get("dbqb"));
+        $tags = $TagQuestion->findAllWhere("questionid = ?", $id);
 
         $user = new User();
         $user->setDb($this->di->get("dbqb"));
